@@ -1,0 +1,30 @@
+{% extends "blog/base.html" %}
+
+{% block title %}My Blog{% endblock %}
+
+{% block content %}
+
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Lista de Postagens</h1>
+      </div>
+    </div>
+
+    <div style="height: 500px; overflow-y: auto;">
+        {% for post in posts %}
+        <div class="col" style="margin-bottom: 20px">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Published {{ post.publish }} by {{ post.author }}</h6>
+                    <p class="card-text">{{ post.body|truncatewords:30|linebreaks }}</p>
+                    <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Detalhes</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    {% include "pagination.html" with page=page_obj %}
+
+{% endblock %}
