@@ -1,0 +1,32 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Share a post{% endblock %}
+
+{% block content %}
+
+    {% if send %}
+
+        <h1>E-mail enviado com sucesso</h1>
+        <p>{{ post.title }} foi encaminhado para {{ form.cleaned_data.to }}</p>
+
+    {% else %}
+        <div class="jumbotron jumbotron-fluid" style="padding: 30px; margin-top: 10px;">
+            <div class="container">
+                <h1 class="display-8">Compartilhar post {{ post.title }} por email</h1>
+            </div>
+        </div>
+        <form method="post">
+            {% for field in form %}
+            <div>
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+            <br/>
+            </div>
+            {% endfor %}
+
+            {% csrf_token %}
+            <input type="submit" value="Enviar e-mail" class="btn btn-block btn-primary">
+        </form>
+    {% endif %}
+
+{% endblock %}
